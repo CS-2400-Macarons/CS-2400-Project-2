@@ -93,14 +93,14 @@ public final class ArrayStack<T> implements StackInterface<T>
     private void checkIntegrity()
     {
         if (!integrityOK)
-            throw new SecurityException("ArrayBag object is corrupt.");
+            throw new SecurityException("ArrayStack object is corrupt.");
     } // end checkIntegrity
 
     // Throws an exception if the client requests a capacity that is too large.
     private void checkCapacity(int capacity)
     {
         if (capacity > MAX_CAPACITY)
-            throw new IllegalStateException("Attempt to create a bag whose " +
+            throw new IllegalStateException("Attempt to create a stack whose " +
                     "capacity exceeds allowed " +
                     "maximum of " + MAX_CAPACITY);
     } // end checkCapacity
