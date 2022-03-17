@@ -88,15 +88,22 @@ public final class ArrayStack<T> implements StackInterface<T>
     //  < Implementations of the private methods go here; checkCapacity and checkIntegrity
     //    are analogous to those in Chapter 2. >
     //  . . .
+
+    // Throws an exception if this object is not initialized.
     private void checkIntegrity()
     {
+        if (!integrityOK)
+            throw new SecurityException("ArrayBag object is corrupt.");
+    } // end checkIntegrity
 
-    }
-
-    private void checkCapacity(int initialCapacity)
+    // Throws an exception if the client requests a capacity that is too large.
+    private void checkCapacity(int capacity)
     {
-
-    }
+        if (capacity > MAX_CAPACITY)
+            throw new IllegalStateException("Attempt to create a bag whose " +
+                    "capacity exceeds allowed " +
+                    "maximum of " + MAX_CAPACITY);
+    } // end checkCapacity
 
     private void ensureCapacity()
     {
