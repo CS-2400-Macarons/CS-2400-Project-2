@@ -180,10 +180,8 @@ public class Calc
                     case "+": case "-": case "*": case "/": case "^":
                             int operandTwo = valueStack.pop();
                             int operandOne = valueStack.pop();
-                            System.out.println("operandTwo:" + operandTwo);
-                            System.out.println("operandOne:" + operandOne);
-
-                            switch (nextCharacter)
+    
+                        switch (nextCharacter)
                             {
                                 case "+":
                                 result = operandOne + operandTwo;                                
