@@ -1,4 +1,5 @@
 import java.util.Locale;
+import java.lang.Math;
 
 public class Calc
 {
@@ -159,9 +160,67 @@ public class Calc
 //        }
 //        return valueStack.peek()
 
-    public int evaluatePostfix(String postfix)
+   public static int evaluatePostfix(String postfix)
     {
+        ArrayStack <Integer> valueStack = new ArrayStack<>();
+        int index = 0;
+        String nextCharacter;
+        int result = 0;
+        while(index != postfix.length())
+        {
+            nextCharacter = postfix.substring(index, index + 1);
+            if(nextCharacter != " ")
+            {
+                switch (nextCharacter)
+                {
+                    case "0": case "1": case "2": case "3": case "4":
+                    case "5": case "6": case "7": case "8": case "9":
+                        valueStack.push(Integer.parseInt(nextCharacter));
+                        break;
+                    case "+": case "-": case "*": case "/": case "^":
+                            int operandTwo = valueStack.pop();
+                            int operandOne = valueStack.pop();
+                            System.out.println("operandTwo:" + operandTwo);
+                            System.out.println("operandOne:" + operandOne);
 
-        return 0;
+                            switch (nextCharacter)
+                            {
+                                case "+":
+                                result = operandOne + operandTwo;                                
+                                break;
+
+                                case "-":
+                                result = operandOne - operandTwo;                                
+                                break;
+
+                                case "*":
+                                result = operandOne * operandTwo;
+                                break;
+
+                                case "/":
+                                result = operandOne / operandTwo;
+                                break;
+
+                                case "^":
+                                result = (int) Math.pow(operandOne, operandTwo);
+                                break;
+
+
+                            }
+
+                         
+                        valueStack.push(result);
+                    
+                    break;
+
+                    default: break;
+
+                }
+
+            }
+            index++;
+        }
+
+        return valueStack.peek();
     }
 }
