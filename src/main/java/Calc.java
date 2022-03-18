@@ -176,36 +176,31 @@ public class Calc
                     case "0": case "1": case "2": case "3": case "4":
                     case "5": case "6": case "7": case "8": case "9":
                         valueStack.push(Integer.parseInt(nextCharacter));
+                        
                         break;
+                        
                     case "+": case "-": case "*": case "/": case "^":
+                        
                             int operandTwo = valueStack.pop();
                             int operandOne = valueStack.pop();
     
-                        switch (nextCharacter)
-                            {
-                                case "+":
-                                result = operandOne + operandTwo;                                
-                                break;
+                            if (nextCharacter.equals("+"))                         
+                            result = operandOne + operandTwo;                                
+                           
 
-                                case "-":
-                                result = operandOne - operandTwo;                                
-                                break;
+                            else if (nextCharacter.equals("-"))
+                            result = operandOne - operandTwo;                                
+                           
 
-                                case "*":
-                                result = operandOne * operandTwo;
-                                break;
+                            else if (nextCharacter.equals("*"))
+                            result = operandOne * operandTwo;
+                            
+                            else if (nextCharacter.equals("/"))
+                            result = operandOne / operandTwo;
+                            
 
-                                case "/":
-                                result = operandOne / operandTwo;
-                                break;
-
-                                case "^":
-                                result = (int) Math.pow(operandOne, operandTwo);
-                                break;
-
-
-                            }
-
+                            else if (nextCharacter.equals("^"))
+                            result = (int) Math.pow(operandOne, operandTwo);
                          
                         valueStack.push(result);
                     
