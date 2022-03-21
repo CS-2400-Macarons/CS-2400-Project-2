@@ -6,8 +6,9 @@ public class Calculator
 {
     public static void main(String[] args) 
     {
+        // Testing given infix expression
         String infix="ab / (c - a) + de";
-        System.out.println("Infix" + infix);
+        System.out.println(": " + infix);
         System.out.println("Postfix: " + convertToPostfix(infix));
         System.out.println("Evaluation: " + evaluatePostfix(convertToPostfix(infix)));
     }
