@@ -1,26 +1,31 @@
+package stackCalculator;
+
 import java.lang.Math;
 
-public class Caluculator
+public class Calculator
 {
     public static void main(String[] args) {
         // Testing the given infix expression and values here
     }
 
-    /** Enter JavaDoc here
-     *
-     * @param infix
-     * @return
+    /** Converts infix expression to postfix expression
+     * @param infix Infix expression containing alphabetical operands
+     * @return Conversion of infix to postfix expression
      */
 
-    public String convertToPostfix(String infix)
+    public static String convertToPostfix(String infix)
     {
+        if(infix.length() == 0)
+        {
+            return "";
+        }
+
         LinkedStack<String> operatorStack = new LinkedStack<>();
         String postfix = "";
         int index = 0;
 
-        while(index != (infix.length() - 1))
+        while(index != (infix.length()))
         {
-
             String nextCharacter = infix.substring(index, index + 1).toLowerCase();
             if(nextCharacter != " ")
             {
@@ -43,28 +48,48 @@ public class Caluculator
                         int nextCharPrecedence = 0;
                         int peekPrecedence = 0;
 
-                        if(nextCharacter == "*" || nextCharacter == "/")
+                        if(nextCharacter.equals("*") || nextCharacter.equals("/"))
                         {
                             nextCharPrecedence = 2;
                         }
-                        else
+                        else if (nextCharacter.equals("+") || nextCharacter.equals("-"))
                         {
                             nextCharPrecedence = 1;
                         }
 
-                        if(operatorStack.peek() == "*" || operatorStack.peek() == "/")
+                        if ( !operatorStack.isEmpty() )
                         {
-                            peekPrecedence = 2;
-                        }
-                        else
-                        {
-                            peekPrecedence = 1;
+                            if(operatorStack.peek().equals("*") || operatorStack.peek().equals("/"))
+                            {
+                                peekPrecedence = 2;
+                            }
+                            else if (operatorStack.peek().equals("+") || operatorStack.peek().equals("-"))
+                            {
+                                peekPrecedence = 1;
+                            }
                         }
 
-                        while(!operatorStack.isEmpty() && nextCharPrecedence <= peekPrecedence)
+                        while(!operatorStack.isEmpty() && (nextCharPrecedence <= peekPrecedence)
+                                && !operatorStack.peek().equals("("))
                         {
                             postfix += operatorStack.peek();
                             operatorStack.pop();
+
+                            if(!operatorStack.isEmpty())
+                            {
+                                if(operatorStack.peek() == "*" || operatorStack.peek() == "/")
+                                {
+                                    peekPrecedence = 2;
+                                }
+                                else if (operatorStack.peek() == "+" || operatorStack.peek() == "-")
+                                {
+                                    peekPrecedence = 1;
+                                }
+                                else
+                                {
+                                    peekPrecedence = 0;
+                                }
+                            }
                         }
                         operatorStack.push(nextCharacter);
                         break;
@@ -75,7 +100,7 @@ public class Caluculator
 
                     case ")":
                         String topOperator = operatorStack.pop();
-                        while (topOperator != "(")
+                        while (!topOperator.equals("("))
                         {
                             postfix += topOperator;
                             topOperator = operatorStack.pop();
@@ -84,28 +109,32 @@ public class Caluculator
 
                     default: break;
                 }
-
-                while (!operatorStack.isEmpty())
-                {
-                    String topOperator = operatorStack.pop();
-                    postfix += topOperator;
-                }
             }
 
             index++;
         }
 
+        while (!operatorStack.isEmpty())
+        {
+            String topOperator = operatorStack.pop();
+            postfix += topOperator;
+        }
+
         return postfix;
     }
 
-    /** Enter Javadoc here
-     *
-     * @param postfix
-     * @return
+    /** Evaluates a postfix expression assuming user sets the value
+     * @param postfix Postfix expression containing numerical operands
+     * @return Integer number of evaluation of postfix
      */
 
     public static int evaluatePostfix(String postfix)
     {
+        if(postfix.length() == 0)
+        {
+            return 0;
+        }
+
         ArrayStack <Integer> valueStack = new ArrayStack<>();
         int index = 0;
         String nextCharacter;
@@ -113,6 +142,7 @@ public class Caluculator
         while(index != postfix.length())
         {
             nextCharacter = postfix.substring(index, index + 1);
+
             if(nextCharacter != " ")
             {
                 switch (nextCharacter)

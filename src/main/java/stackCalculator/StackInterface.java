@@ -1,3 +1,5 @@
+package stackCalculator;
+
 import java.util.EmptyStackException;
 
 /** An interface for the ADT stack. */

@@ -1,3 +1,5 @@
+package stackCalculator;
+
 import java.util.EmptyStackException;
 
 /**
@@ -14,15 +16,17 @@ public final class LinkedStack<T> implements StackInterface<T>
         topNode = null;
     } // end default constructor
 
-    //  < Implementations of the stack operations go here. >
-    //  . . .
-
+    /** Adds a new entry to the top of this stack.
+     @param newEntry  An object to be added to the stack. */
     public void push(T newEntry)
     {
         Node newNode = new Node(newEntry, topNode);
         topNode = newNode;
     } // end push
 
+    /** Retrieves this stack's top entry.
+     @return  The object at the top of the stack.
+     @throws  EmptyStackException if the stack is empty. */
     public T peek()
     {
         if (isEmpty())
@@ -31,6 +35,9 @@ public final class LinkedStack<T> implements StackInterface<T>
             return topNode.getData();
     } // end peek
 
+    /** Removes and returns this stack's top entry.
+     @return  The object at the top of the stack.
+     @throws EmptyStackException if the stack is empty before the operation. */
     public T pop()
     {
         T top = peek();  // Might throw EmptyStackException
@@ -41,11 +48,14 @@ public final class LinkedStack<T> implements StackInterface<T>
         return top;
     } // end pop
 
+    /** Detects whether this stack is empty.
+     @return  True if the stack is empty. */
     public boolean isEmpty()
     {
         return topNode == null;
     } // end isEmpty
 
+    /** Removes all entries from this stack. */
     public void clear()
     {
         topNode = null;

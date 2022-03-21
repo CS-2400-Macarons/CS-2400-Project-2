@@ -1,3 +1,5 @@
+package stackCalculator;
+
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
@@ -32,7 +34,8 @@ public final class ArrayStack<T> implements StackInterface<T>
         integrityOK = true;
     } // end constructor
 
-    //  < Implementations of the stack operations go here. >
+    /** Adds a new entry to the top of this stack.
+     @param newEntry  An object to be added to the stack. */
     public void push(T newEntry)
     {
         checkIntegrity();
@@ -41,6 +44,9 @@ public final class ArrayStack<T> implements StackInterface<T>
         topIndex++;
     } // end push
 
+    /** Retrieves this stack's top entry.
+     @return  The object at the top of the stack.
+     @throws  EmptyStackException if the stack is empty. */
     public T peek()
     {
         checkIntegrity();
@@ -50,7 +56,9 @@ public final class ArrayStack<T> implements StackInterface<T>
             return stack[topIndex];
     } // end peek
 
-
+    /** Removes and returns this stack's top entry.
+     @return  The object at the top of the stack.
+     @throws EmptyStackException if the stack is empty before the operation. */
     public T pop()
     {
         checkIntegrity();
@@ -65,11 +73,14 @@ public final class ArrayStack<T> implements StackInterface<T>
         } // end if
     } // end pop
 
+    /** Detects whether this stack is empty.
+     @return  True if the stack is empty. */
     public boolean isEmpty()
     {
         return topIndex < 0;
     } // end isEmpty
 
+    /** Removes all entries from this stack. */
     public void clear()
     {
         checkIntegrity();
