@@ -4,8 +4,12 @@ import java.lang.Math;
 
 public class Calculator
 {
-    public static void main(String[] args) {
-        // Testing the given infix expression and values here
+    public static void main(String[] args) 
+    {
+        String infix="ab / (c - a) + de";
+        System.out.println("Infix" infix);
+        System.out.println("Postfix: " convertToPostfix(infix));
+        System.out.println("Evaluation: " evaluatePostfix(convertToPostfix(infix)));
     }
 
     /** Converts infix expression to postfix expression
